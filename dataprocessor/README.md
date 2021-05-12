@@ -3,13 +3,16 @@ An tool to preprocess GN dataset into Staford CoreNLP XML output format
 
 python3 for data preprocessing
 
-run `pip -r install reuqirements` to install requirements.
+run `pip3 install -r requirements.txt` to install requirements.
 
 ## Preprocess GN dataset
 
 ### Prepare Stanford CoreNLP
-Download the [VERSION 3.9.1](https://stanfordnlp.github.io/CoreNLP/history.html),
+Download the [VERSION 3.9.1](https://stanfordnlp.github.io/CoreNLP/history.html).
 and rewrite the variable `CORENLP_HOME` which indicates location of Stanford CoreNLP packages in `./setting.yaml`
+
+URL:
+http://nlp.stanford.edu/software/stanford-english-corenlp-2018-02-27-models.jar
 
 ### Run Preprocess Steps
 ```bash

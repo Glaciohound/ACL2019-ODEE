@@ -1,9 +1,15 @@
 import torch
+import argparse
 
 import yaml
 from allennlp.modules.elmo import Elmo, batch_to_ids
 
 from data import ParsedCorpus
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--options-file", type=str, default="data/options.json")
+parser.add_argument("--weight-file", type=str, default="data/weight.hdf5")
+args = parser.parse_args()
 
 if __name__ == "__main__":
 
@@ -21,8 +27,10 @@ if __name__ == "__main__":
     corefs_generator = corpus.get_single("corefs")
 
     # if you are looking for example, please see https://allennlp.org/elmo
-    options_file = "/path/to/options.json"
-    weight_file = "path/to/weights.hdf5"
+    # options_file = "/path/to/options.json"
+    # weight_file = "path/to/weights.hdf5"
+    options_file = args.options_file
+    weight_file = args.weight_file
     encoder = Elmo(options_file, weight_file, 1, dropout=0)
     encoder.eval()
     encoder.cuda()
@@ -38,7 +46,8 @@ if __name__ == "__main__":
             doc.append(sentence)
         character_ids = batch_to_ids(doc).cuda()
         # [sentence_num, sentence_len, 256]
-        embeddings = encoder(character_ids)['elmo_representations'][0].detach().cpu().data
+        embeddings = encoder(character_ids)['elmo_representations'][0]\
+            .detach().cpu().data
 
         # padding slot realizations
         max_rr = 0
