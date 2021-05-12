@@ -17,14 +17,17 @@ Download the [VERSION 3.9.1](https://stanfordnlp.github.io/CoreNLP/history.html)
 and rewrite the variable `CORENLP_HOME` which indicates location of Stanford CoreNLP packages in `./setting.yaml`
 
 URL:
-http://nlp.stanford.edu/software/stanford-english-corenlp-2018-02-27-models.jar
+http://nlp.stanford.edu/software/stanford-corenlp-full-2018-02-27.zip
 
 ### Run Preprocess Steps
+Change line 46 and 106 in `${stanfordcorenlp_path}/corenlp.py` to specify `executable="/bin/bash"`.
+One can not remove the `sudo` in the following scripts, or the Stanford-NLP-server will report 403 forbidden error.
+
 bash:
 ```
-sudo python3 odee_preprocess.py $SCRIPTPATH/data/test_data parsed_test >& parsed_test.log &
-sudo /home/liuxiao/anaconda3/bin/python odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev >& parsed_dev.log &
-sudo /home/liuxiao/anaconda3/bin/python odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/unlabeled_data parsed_unlabeled >& parsed_unlabeled.log &
+sudo python3 odee_preprocess.py $SCRIPTPATH/data/test_data parsed_test
+sudo python3 odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev
+sudo python3 odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/unlabeled_data parsed_unlabeled
 sudo chown liuxiao parsed_test
 sudo chown liuxiao parsed_dev
 sudo chown liuxiao parsed_unlabeled

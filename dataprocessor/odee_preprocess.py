@@ -2,6 +2,7 @@ import json
 import os
 import sys
 from functools import partial
+import tqdm
 
 import yaml
 from stanfordcorenlp import StanfordCoreNLP
@@ -203,7 +204,7 @@ if __name__ == "__main__":
     report_count = 0
     sentence_count = 0
     token_count = 0
-    for file_path in input_queue(INPUT_DIR):
+    for file_path in tqdm.tqdm(input_queue(INPUT_DIR)):
         print("Processing %s" % file_path)
         file, name, content, rc = process_it(annotator, file_path, all_setting["TEXT_MAXLEN"])
         # counting somethings
