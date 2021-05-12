@@ -1,6 +1,11 @@
 # ODEE Data Preprocessor
 An tool to preprocess GN dataset into Staford CoreNLP XML output format 
 
+```
+export SCRIPTPATH=$(pwd)
+cd ./dataprocessor
+```
+
 python3 for data preprocessing
 
 run `pip3 install -r requirements.txt` to install requirements.
@@ -15,13 +20,14 @@ URL:
 http://nlp.stanford.edu/software/stanford-english-corenlp-2018-02-27-models.jar
 
 ### Run Preprocess Steps
-```bash
-Me@PC$ sudo /home/liuxiao/anaconda3/bin/python odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/test_data parsed_test >& parsed_test.log &
-Me@PC$ sudo /home/liuxiao/anaconda3/bin/python odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev >& parsed_dev.log &
-Me@PC$ sudo /home/liuxiao/anaconda3/bin/python odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/unlabeled_data parsed_unlabeled >& parsed_unlabeled.log &
-Me@PC$ sudo chown liuxiao parsed_test
-Me@PC$ sudo chown liuxiao parsed_dev
-Me@PC$ sudo chown liuxiao parsed_unlabeled
+bash:
+```
+sudo python3 odee_preprocess.py $SCRIPTPATH/data/test_data parsed_test >& parsed_test.log &
+sudo /home/liuxiao/anaconda3/bin/python odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev >& parsed_dev.log &
+sudo /home/liuxiao/anaconda3/bin/python odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/unlabeled_data parsed_unlabeled >& parsed_unlabeled.log &
+sudo chown liuxiao parsed_test
+sudo chown liuxiao parsed_dev
+sudo chown liuxiao parsed_unlabeled
 ```
 
 ### Copy Labeled Data

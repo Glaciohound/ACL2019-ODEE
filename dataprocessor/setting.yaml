@@ -1,5 +1,5 @@
 'CORENLP_HOME':
-  'server': '/home/liuxiao/MyShare/stanford-corenlp-full-2018-02-27'
+  'server': '/opt/tiger/ACL2019-ODEE/data/stanford-corenlp-full-2018-02-27'
 
 'props':
   'annotators': 'tokenize,ssplit,pos,lemma,ner,parse,dcoref'
