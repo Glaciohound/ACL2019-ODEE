@@ -132,6 +132,8 @@ def print_top_words(beta, feature_names, n_top_words=10):
 
 
 if __name__ == '__main__':
+    model_dir = os.path.abspath(os.path.join(args.model_path, os.path.pardir))
+    os.makedirs(model_dir, exist_ok=True)
     data_iterator, vocab, entity_vocab = make_data()
     make_model(vocab, entity_vocab)
     make_optimizer()
