@@ -6,7 +6,8 @@
   'ssplit.newlineIsSentenceBreak': 'always'
   'pipelineLanguage': 'en'
   'outputFormat': 'json'
-  'parse.maxlen': '100'
+  'parse.maxlen': '500'
+  'timeout': '50000'
 
 'ref_corpus_props':
   'annotators': 'tokenize,ssplit'

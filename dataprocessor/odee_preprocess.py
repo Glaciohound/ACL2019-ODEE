@@ -3,6 +3,7 @@ import os
 import sys
 from functools import partial
 import tqdm
+import atexit
 
 import yaml
 from stanfordcorenlp import StanfordCoreNLP
@@ -176,10 +177,11 @@ def store_it(FILE, OUTPUT_PATH):
     pin_predicates(FILE)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(FILE, f, ensure_ascii=False)
-    print("STORED %s" % OUTPUT_PATH)
+    # print("STORED %s" % OUTPUT_PATH)
 
 
 if __name__ == "__main__":
+    os.environ['PATH'] += ":/opt/tiger/jdk/jdk1.8/bin/"
     if len(sys.argv) != 3:
         print("PYTHON odee_preprocess.py INPUT_DIR OUTPUT_DIR")
         sys.exit(-1)
@@ -187,7 +189,7 @@ if __name__ == "__main__":
     if not os.path.exists(OUTPUT_DIR):
         os.mkdir(OUTPUT_DIR)
     with open("setting.yaml", "r") as stream:
-        all_setting = yaml.load(stream)
+        all_setting = yaml.load(stream, yaml.SafeLoader)
     CORENLP_HOME = all_setting["CORENLP_HOME"]["server"]
     try:
         CORENLP_HOME.startswith("/")
@@ -199,14 +201,25 @@ if __name__ == "__main__":
 
     nlp_server = StanfordCoreNLP(CORENLP_HOME, memory='8g')
     annotator = partial(nlp_server.annotate, properties=all_setting["props"])
+    atexit.register(nlp_server.close)
 
     cluster_count = 0
     report_count = 0
     sentence_count = 0
     token_count = 0
-    for file_path in tqdm.tqdm(input_queue(INPUT_DIR)):
-        print("Processing %s" % file_path)
-        file, name, content, rc = process_it(annotator, file_path, all_setting["TEXT_MAXLEN"])
+    pbar = tqdm.tqdm(input_queue(INPUT_DIR))
+    for file_path in pbar:
+        name = "-".join(file_path.split(os.sep)[-3:-1])
+        json_output_path = os.path.join(OUTPUT_DIR, name + ".json")
+        raw_output_path = os.path.join(OUTPUT_DIR, name + ".txt")
+        if os.path.exists(json_output_path) and \
+                os.path.exists(raw_output_path):
+            pbar.set_description_str("skipping " + file_path[-30:])
+            continue
+
+        pbar.set_description_str("Processing %s" % file_path[-30:])
+        file, name, content, rc = \
+            process_it(annotator, file_path, all_setting["TEXT_MAXLEN"])
         # counting somethings
         cluster_count += 1
         report_count += rc
@@ -214,10 +227,8 @@ if __name__ == "__main__":
         for json_sentence in file["sentences"]:
             token_count += len(json_sentence["tokens"])
         # dump cleaned stanford json
-        json_output_path = os.path.join(OUTPUT_DIR, name + ".json")
         store_it(file, json_output_path)
         # dump raw texts
-        raw_output_path = os.path.join(OUTPUT_DIR, name + ".txt")
         with open(raw_output_path, "w", encoding="utf-8") as f:
             for line in content:
                 f.write(line.strip() + "\n")
