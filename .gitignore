@@ -7,3 +7,4 @@ legacy/
 **/__pycache__/
 voc.txt
 evoc.txt
+*.log

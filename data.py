@@ -120,7 +120,7 @@ class DataIterator:
         self.cnt = 0
         self.sentences_generator = None
         self.corefs_generator = None
-        self.feature_grnerator = None
+        self.feature_generator = None
         self.reset()
 
     def __len__(self):
@@ -131,10 +131,10 @@ class DataIterator:
         self.cnt = 0
         del self.sentences_generator
         del self.corefs_generator
-        del self.feature_grnerator
+        del self.feature_generator
         self.sentences_generator = self.corpus.get_single("sentences")
         self.corefs_generator = self.corpus.get_single("corefs")
-        self.feature_grnerator = self.corpus.get_single("pt")
+        self.feature_generator = self.corpus.get_single("pt")
 
     def get_minibatch(self, batch_size):
         # start_time = time.time()
@@ -153,7 +153,7 @@ class DataIterator:
         max_len = 0
         for _ in range(batch_size):
             # get cached features
-            id2f, id2r, fn = next(self.feature_grnerator)
+            id2f, id2r, fn = next(self.feature_generator)
             file_names.append(fn)
             # padding slot realizations
             corefs, _ = next(self.corefs_generator)
