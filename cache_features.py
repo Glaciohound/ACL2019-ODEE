@@ -10,7 +10,7 @@ from data import ParsedCorpus
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--options-file", type=str, default="data/options.json")
-parser.add_argument("--weight-file", type=str, default="data/weight.hdf5")
+parser.add_argument("--weight-file", type=str, default="data/weights.hdf5")
 args = parser.parse_args()
 
 if __name__ == "__main__":
