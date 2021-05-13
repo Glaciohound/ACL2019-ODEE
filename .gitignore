@@ -1,5 +1,6 @@
 data/
 **/parsed*.log
 dataprocessor/parsed_*
+dataprocessor/corpus*
 tmp/
 legacy/

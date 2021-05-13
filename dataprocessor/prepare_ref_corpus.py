@@ -57,7 +57,7 @@ if __name__ == "__main__":
     os.environ['PATH'] += ":/opt/tiger/jdk/jdk1.8/bin/"
     INPUT_DIR, OUTPUT_PATH = sys.argv[1], sys.argv[2]
     with open("setting.yaml", "r") as stream:
-        all_setting = yaml.load(stream)
+        all_setting = yaml.load(stream, yaml.SafeLoader)
     CORENLP_HOME = all_setting["CORENLP_HOME"]["server"]
     try:
         CORENLP_HOME.startswith("/")
