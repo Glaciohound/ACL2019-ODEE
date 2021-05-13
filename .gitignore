@@ -1,2 +1,3 @@
 data/
 **/parsed*.log
+dataprocessor/parsed_*

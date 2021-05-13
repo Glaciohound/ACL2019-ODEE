@@ -20,8 +20,14 @@ URL:
 http://nlp.stanford.edu/software/stanford-corenlp-full-2018-02-27.zip
 
 ### Run Preprocess Steps
-Change line 46 and 106 in `${stanfordcorenlp_path}/corenlp.py` to specify `executable="/bin/bash"`.
+Modify `${stanfordcorenlp_path}/corenlp.py`.
+Change line 46 and 106 to specify
+`env={"PATH": os.environ['PATH']+":/opt/tiger/jdk/jdk1.8/bin/"}`.
 One can not remove the `sudo` in the following scripts, or the Stanford-NLP-server will report 403 forbidden error.
+
+`
+sudo python3 odee_preprocess_stanza.py $SCRIPTPATH/data/test_data parsed_test
+`
 
 bash:
 ```
@@ -34,9 +40,10 @@ sudo chown liuxiao parsed_unlabeled
 ```
 
 ### Copy Labeled Data
-```bash
-Me@PC$ python copy_labeled.py /home/liuxiao/projects/schema/data_annotation/test_data parsed_test
-Me@PC$ python copy_labeled.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev
+bash
+```
+python copy_labeled.py /home/liuxiao/projects/schema/data_annotation/test_data parsed_test
+python copy_labeled.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev
 ```
 
 ## Prepare Full Text as Reference Corpus
