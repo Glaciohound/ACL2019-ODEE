@@ -25,10 +25,13 @@ wn_words = load_wn_words()
 
 
 def input_queue(INPUT_DIR):
-    for DATE_STR in os.listdir(INPUT_DIR):
-        if DATE_STR.startswith("."): continue
+    pbar = tqdm.tqdm(os.listdir(INPUT_DIR))
+    for DATE_STR in pbar:
+        if DATE_STR.startswith("."):
+            continue
         for ID in os.listdir(os.path.join(INPUT_DIR, DATE_STR)):
-            if ID.startswith("."): continue
+            if ID.startswith("."):
+                continue
             file_path = os.path.join(INPUT_DIR, DATE_STR, ID, "news.txt")
             if os.path.exists(file_path):
                 yield file_path
@@ -87,12 +90,16 @@ def fix_stanford_coref(stanford_json):
             start_index = entity["startIndex"] - 1  # starting from 0
             end_index = entity["endIndex"] - 1  # starting from 0
             head_index = entity["headIndex"] - 1  # starting from 0
-            entity_label = stanford_json["sentences"][sent_num]["tokens"][head_index]["ner"]
+            entity_label = (
+                stanford_json["sentences"][sent_num]
+                ["tokens"][head_index]["ner"]
+            )
             entity["sentNum"] = sent_num
             entity["startIndex"] = start_index
             entity["endIndex"] = end_index
             entity["headIndex"] = head_index
-            entity["headWord"] = entity["text"].split(" ")[head_index - start_index]
+            entity["headWord"] = entity["text"].split(" ")[
+                head_index - start_index]
             entity["entityType"] = entity_label
             true_coref.append(entity)
         # check link is not empty
@@ -157,13 +164,28 @@ def pin_predicates(stanford_json):
             fas = graphs[sent_num][u]
             entity["predicates"] = []
             for fa in fas:
-                if stanford_json["sentences"][sent_num]["tokens"][fa]["pos"].startswith("VB") or \
-                        (stanford_json["sentences"][sent_num]["tokens"][fa]["pos"].startswith("NN") and
-                         stanford_json["sentences"][sent_num]["tokens"][fa]["lemma"].lower() in
-                         wn_words):
-                    predicate_lemma = stanford_json["sentences"][sent_num]["tokens"][fa]["lemma"]
-                    predicate_original = stanford_json["sentences"][sent_num]["tokens"][fa]["originalText"]
-                    predicate_pos = stanford_json["sentences"][sent_num]["tokens"][fa]["pos"]
+                if (
+                    stanford_json["sentences"][sent_num]
+                    ["tokens"][fa]["pos"].startswith("VB")
+                ) or (
+                    stanford_json["sentences"][sent_num]
+                    ["tokens"][fa]["pos"].startswith("NN")
+                ) and (
+                    stanford_json["sentences"][sent_num]
+                    ["tokens"][fa]["lemma"].lower() in wn_words
+                ):
+                    predicate_lemma = (
+                        stanford_json["sentences"][sent_num]
+                        ["tokens"][fa]["lemma"]
+                    )
+                    predicate_original = (
+                        stanford_json["sentences"][sent_num]
+                        ["tokens"][fa]["originalText"]
+                    )
+                    predicate_pos = (
+                        stanford_json["sentences"][sent_num]
+                        ["tokens"][fa]["pos"]
+                    )
                     entity["predicates"].append({
                         "lemma": predicate_lemma,
                         "original": predicate_original,
@@ -194,7 +216,7 @@ if __name__ == "__main__":
     try:
         CORENLP_HOME.startswith("/")
         os.listdir(CORENLP_HOME)
-    except:
+    except Exception:
         print("Error with CORENLP_HOME setting")
         sys.exit(-1)
     print(INPUT_DIR, OUTPUT_DIR, CORENLP_HOME)
@@ -207,17 +229,17 @@ if __name__ == "__main__":
     report_count = 0
     sentence_count = 0
     token_count = 0
-    pbar = tqdm.tqdm(input_queue(INPUT_DIR))
-    for file_path in pbar:
+    # pbar = tqdm.tqdm(input_queue(INPUT_DIR))
+    for file_path in input_queue(INPUT_DIR):
         name = "-".join(file_path.split(os.sep)[-3:-1])
         json_output_path = os.path.join(OUTPUT_DIR, name + ".json")
         raw_output_path = os.path.join(OUTPUT_DIR, name + ".txt")
         if os.path.exists(json_output_path) and \
                 os.path.exists(raw_output_path):
-            pbar.set_description_str("skipping " + file_path[-30:])
+            # pbar.set_description_str("skipping " + file_path[-30:])
             continue
 
-        pbar.set_description_str("Processing %s" % file_path[-30:])
+        # pbar.set_description_str("Processing %s" % file_path[-30:])
         file, name, content, rc = \
             process_it(annotator, file_path, all_setting["TEXT_MAXLEN"])
         # counting somethings

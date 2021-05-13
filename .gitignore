@@ -4,3 +4,5 @@ dataprocessor/parsed_*
 dataprocessor/corpus*
 tmp/
 legacy/
+**/__pycache__/
+voc.txt

@@ -7,6 +7,9 @@ Modify the Line 24 and 25 in `cache_features.py`.
 The fine-tune process need 2 * GTX 1080Ti, if the fine-tune process is costly or somehow failed 
 to complete, please use the initial parameters in [allennlp](https://allennlp.org/elmo).
 
+https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway_5.5B/elmo_2x4096_512_2048cnn_2xhighway_5.5B_weights.hdf5
+https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway_5.5B/elmo_2x4096_512_2048cnn_2xhighway_5.5B_options.json
+
 Please note that it is optional to finetune the ELMo model if you just want to complete the whole procedure
 or use the model in somewhere else.
 
@@ -16,11 +19,11 @@ The data is [HERE](https://drive.google.com/open?id=1KjL3mAxj9nmzqC75s2rNaT6x6CJ
 
 1. run the dataprocessor
 2. run `sudo chown [YOUR_UERS] [PROCESSED_DIR]` and specify the directories in `setting.yaml` manually
-2. run `pip install -r requirements.txt` to install required packages
-3. run `python cache_features.py`
-4. run `python train_avitm.py`
-5. run `python generate_slot_topN.py`
-6. run `python decode.py`
+2. run `pip3 install -r requirements.txt` to install required packages
+3. run `python3 cache_features.py`
+4. run `python3 train_avitm.py`
+5. run `python3 generate_slot_topN.py`
+6. run `python3 decode.py`
 7. run `cd slotcoherence && ./run-oc.sh`
 8. run `visualize_test.ipynb`
 

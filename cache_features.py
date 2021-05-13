@@ -1,5 +1,7 @@
 import torch
 import argparse
+import os
+import tqdm
 
 import yaml
 from allennlp.modules.elmo import Elmo, batch_to_ids
@@ -35,10 +37,14 @@ if __name__ == "__main__":
     encoder.eval()
     encoder.cuda()
 
-    for _ in range(len(corpus)):
+    pbar = tqdm.tqdm(range(len(corpus)))
+    for _ in pbar:
         sentences, file_name = next(sentences_generator)
         corefs, _ = next(corefs_generator)
         save_name = file_name + ".pt"
+        if os.path.exists(save_name):
+            pbar.set_description_str(f"{save_name} exists, skipping"[-30:])
+            continue
         # preprocess all sentences in a document
         doc = []
         for sentence in sentences:
@@ -68,6 +74,6 @@ if __name__ == "__main__":
         for id, rr in id2r.items():
             id2r[id] = rr / max_rr
         torch.save({"fs": id2f, "rs": id2r}, save_name)
-        print("Processing %s to %s" % (file_name, save_name))
+        pbar.set_description_str(file_name[-30:])
 
     print("Done!")
