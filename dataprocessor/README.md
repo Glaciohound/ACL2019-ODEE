@@ -20,13 +20,7 @@ URL:
 http://nlp.stanford.edu/software/stanford-corenlp-full-2018-02-27.zip
 
 ### Run Preprocess Steps
-Add Java configuration to `odee_preprocess.py` by
-```
-os.environ['PATH'] += ":/opt/tiger/jdk/jdk1.8/bin/"
-```
-
 One can not remove the `sudo` in the following scripts, or the Stanford-NLP-server will report 403 forbidden error.
-
 `
 sudo python3 odee_preprocess_stanza.py $SCRIPTPATH/data/test_data parsed_test
 `
@@ -34,29 +28,30 @@ sudo python3 odee_preprocess_stanza.py $SCRIPTPATH/data/test_data parsed_test
 bash:
 ```
 sudo python3 odee_preprocess.py $SCRIPTPATH/data/test_data parsed_test
-sudo python3 odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev
-sudo python3 odee_preprocess.py /home/liuxiao/projects/schema/data_annotation/unlabeled_data parsed_unlabeled
-sudo chown liuxiao parsed_test
-sudo chown liuxiao parsed_dev
-sudo chown liuxiao parsed_unlabeled
+sudo python3 odee_preprocess.py $SCRIPTPATH/data/dev_data parsed_dev
+sudo python3 odee_preprocess.py $SCRIPTPATH/data/unlabeled_data parsed_unlabeled
+sudo chown $THIS_USER parsed_test
+sudo chown $THIS_USER parsed_dev
+sudo chown $THIS_USER parsed_unlabeled
 ```
 
 ### Copy Labeled Data
 bash
 ```
-python copy_labeled.py /home/liuxiao/projects/schema/data_annotation/test_data parsed_test
-python copy_labeled.py /home/liuxiao/projects/schema/data_annotation/dev_data parsed_dev
+python copy_labeled.py $SCRIPTPATH/data/test_data parsed_test
+python copy_labeled.py $SCRIPTPATH/data/dev_data parsed_dev
 ```
 
 ## Prepare Full Text as Reference Corpus
-```bash
-Me@PC$ sudo /home/liuxiao/anaconda3/bin/python prepare_ref_corpus.py /home/liuxiao/projects/schema/data_annotation/test_data corpus.test &> corpus_test.log &
-Me@PC$ sudo /home/liuxiao/anaconda3/bin/python prepare_ref_corpus.py /home/liuxiao/projects/schema/data_annotation/dev_data corpus.dev &> corpus_dev.log &
-Me@PC$ sudo /home/liuxiao/anaconda3/bin/python prepare_ref_corpus.py /home/liuxiao/projects/schema/data_annotation/unlabeled_data corpus.unlabeled &> corpus_unlabeled.log &
-Me@PC$ sudo chown liuxiao corpus.test
-Me@PC$ sudo chown liuxiao corpus.dev
-Me@PC$ sudo chown liuxiao corpus.unlabeled
-Me@PC$ cat corpus.test corpus.dev corpus.unlabeled > corpus
+bash
+```
+sudo python3 prepare_ref_corpus.py $SCRIPTPATH/data/test_data corpus.test
+sudo python3 prepare_ref_corpus.py $SCRIPTPATH/data/dev_data corpus.dev
+sudo python3 prepare_ref_corpus.py $SCRIPTPATH/data/unlabeled_data corpus.unlabeled
+sudo chown $THIS_USER corpus.test
+sudo chown $THIS_USER corpus.dev
+sudo chown $THIS_USER corpus.unlabeled
+cat corpus.test corpus.dev corpus.unlabeled > corpus
 ```
 
 ## Produced Data

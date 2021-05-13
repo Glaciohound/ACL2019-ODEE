@@ -54,6 +54,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("PYTHON prepare_ref_corpus.py INPUT_DIR OUTPUT_PATH")
         sys.exit(-1)
+    os.environ['PATH'] += ":/opt/tiger/jdk/jdk1.8/bin/"
     INPUT_DIR, OUTPUT_PATH = sys.argv[1], sys.argv[2]
     with open("setting.yaml", "r") as stream:
         all_setting = yaml.load(stream)
