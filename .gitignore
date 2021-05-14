@@ -10,3 +10,4 @@ voc.txt
 evoc.txt
 *.log
 logs/
+.ipynb_checkpoints/

@@ -1,4 +1,4 @@
 'parsed_data_path':
-  'test': "/opt/tiger/ACL2019-ODEE/dataprocessor/parsed_test"
-  'dev': "/opt/tiger/ACL2019-ODEE/dataprocessor/parsed_dev"
-  'unlabeled': "/opt/tiger/ACL2019-ODEE/dataprocessor/parsed_unlabeled"
+  'test': "dataprocessor/parsed_test"
+  'dev': "dataprocessor/parsed_dev"
+  'unlabeled': "dataprocessor/parsed_unlabeled"
