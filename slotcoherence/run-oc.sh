@@ -9,11 +9,11 @@
 #parameters
 metric="npmi" #evaluation metric: pmi, npmi or lcp
 #input
-topic_file="slot_head_words.txt"
+topic_file="../logs/slot_head_words.txt"
 ref_corpus_dir="gn"
 #output
-wordcount_file="results/wc-oc.txt"
-oc_file="results/slots-oc.txt"
+wordcount_file="../logs/wc-oc.txt"
+oc_file="../logs/slots-oc.txt"
 
 if [ "$1" == "--cached" ] # always keep the spaces around ops
 then
