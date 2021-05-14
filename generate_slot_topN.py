@@ -17,6 +17,7 @@ parser.add_argument('-e', '--num-epoch', type=int, default=80)
 parser.add_argument('-q', '--init-mult', type=float, default=1.0)  # multiplier in initialization of decoder weight
 parser.add_argument('-v', '--variance', type=float, default=0.995)  # default variance in prior normal
 parser.add_argument('-p', '--model-path', type=str, default='models/default.pt')
+parser.add_argument('--save-path', type=str, default='logs/slot_head_words.txt')
 
 args = parser.parse_args()
 
@@ -47,5 +48,5 @@ model = Extractor(net_arch)
 model.load_cpu_model(args.model_path)
 model.eval()
 emb = model.get_unnormalized_phi()  # [K, V]
-save_top_words(emb, vocab.itos)
+save_top_words(emb, vocab.itos, args.save_path)
 print("Done!")

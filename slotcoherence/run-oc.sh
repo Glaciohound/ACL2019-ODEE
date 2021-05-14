@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#script that computes the observed coherence (pointwise mutual information, normalised pmi or log 
+#script that computes the observed coherence (pointwise mutual information, normalised pmi or log
 #conditional probability)
 #steps:
 #1. sample the word counts of the topic words based on the reference corpus
@@ -21,9 +21,9 @@ then
 else
     #compute the word occurrences
     echo "Computing word occurrence..."
-    python ComputeWordCount.py $topic_file $ref_corpus_dir > $wordcount_file
+    python3 ComputeWordCount.py $topic_file $ref_corpus_dir > $wordcount_file
 fi
 
 #compute the topic observed coherence
 echo "Computing the observed coherence..."
-python ComputeObservedCoherence.py $topic_file $metric $wordcount_file > $oc_file
+python3 ComputeObservedCoherence.py $topic_file $metric $wordcount_file > $oc_file
