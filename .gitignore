@@ -9,3 +9,4 @@ legacy/
 voc.txt
 evoc.txt
 *.log
+logs/

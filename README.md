@@ -22,10 +22,10 @@ The data is [HERE](https://drive.google.com/open?id=1KjL3mAxj9nmzqC75s2rNaT6x6CJ
 2. run `sudo chown [YOUR_UERS] [PROCESSED_DIR]` and specify the directories in `setting.yaml` manually
 2. run `pip3 install -r requirements.txt` to install required packages
 3. run `python3 cache_features.py`
-4. run `python3 train_avitm.py`
-5. run `python3 generate_slot_topN.py`
-6. run `python3 decode.py`
-7. run `cd slotcoherence && ./run-oc.sh`
+4. run `python3 train_avitm.py 2>&1 | tee logs/train.log`
+5. run `python3 generate_slot_topN.py 2>&1 | tee logs/generation.log`
+6. run `python3 decode.py 2>&1 | tee logs/decoding.log`
+7. run `cd slotcoherence && ./run-oc.sh 2>&1 | tee logs/coherence.log`
 8. run `visualize_test.ipynb`
 
 ## Produced Data
