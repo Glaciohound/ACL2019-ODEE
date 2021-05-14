@@ -48,5 +48,5 @@ model = Extractor(net_arch)
 model.load_cpu_model(args.model_path)
 model.eval()
 emb = model.get_unnormalized_phi()  # [K, V]
-save_top_words(emb, vocab.itos, args.save_path)
+save_top_words(emb, vocab.itos, save_path=args.save_path)
 print("Done!")
