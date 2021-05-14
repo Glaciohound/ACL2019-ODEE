@@ -29,7 +29,8 @@ debug = False
 TOTALWKEY = "!!<TOTAL_WINDOWS>!!"  # key name for total number of windows (in wordcount)
 
 # input
-topic_file = open(args.topic_file, "r", encoding="utf-8")
+with open(args.topic_file, "r", encoding="utf-8") as topic_stream:
+    topic_file = topic_stream.readlines()
 
 # global variables
 # a dictionary that stores related topic words, e.g. { "space": set(["space", "earth", ...]), ... }

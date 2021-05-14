@@ -1,6 +1,7 @@
 data/
 models/
 **/parsed*.log
+slotcoherence/gn/corpus*
 dataprocessor/parsed_*
 dataprocessor/corpus*
 tmp/
