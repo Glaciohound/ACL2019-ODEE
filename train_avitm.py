@@ -26,7 +26,7 @@ parser.add_argument('-p', '--model-path', type=str, default='models/default.pt')
 args = parser.parse_args()
 
 with open("setting.yaml", "r") as stream:
-    setting = yaml.load(stream)
+    setting = yaml.load(stream, yaml.SafeLoader)
 
 # default to use GPU, but have to check if GPU exists
 if not args.nogpu:
@@ -96,12 +96,13 @@ def make_optimizer():
 def train(iterator, vocab):
     if os.path.exists(args.model_path):
         model.load_cpu_model(args.model_path)
-        print("Loading existing weights from " + args.model_path)
+        print("Loading existing weights from " + args.model_path, flush=True)
     for epoch in range(args.num_epoch):
         iterator.reset()
         loss_epoch = 0.0
         model.train()  # switch to training mode
         max_step = (len(iterator) + args.batch_size - 1) // args.batch_size
+        # with tqdm(total=max_step, desc='Epoch %d Progress' % (epoch + 1)) as pbar:
         with tqdm(total=max_step, desc='Epoch %d Progress' % (epoch + 1)) as pbar:
             for iter_no in range(max_step):
                 hs, fs, rs, _, _, mask, _, _ = iterator.get_minibatch(args.batch_size)

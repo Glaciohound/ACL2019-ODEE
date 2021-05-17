@@ -15,7 +15,7 @@ ref_corpus_dir="gn"
 wordcount_file="../logs/wc-oc.txt"
 oc_file="../logs/slots-oc.txt"
 
-if [ "$1" == "--cached" ] # always keep the spaces around ops
+if [[ "$1" == "--cached" ]] # always keep the spaces around ops
 then
     echo "Using cached word occurrence..."
 else

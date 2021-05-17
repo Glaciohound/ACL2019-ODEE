@@ -11,7 +11,7 @@ python3 for slot coherence
 Parallel processing for sampling the word counts can be achieved by splitting the reference corpus 
 into multiple partitions. The format of the reference corpus is one line per document, and the words 
 should be tokenised (separated by white space). An example reference 
-corpus is given in `ref_corpus/`.
+corpus is given in `ref_demo/`.
 
 Detailed steps is:
 1. run `cd gn && split ../../dataprocessor/corpus corpus. -d -l 5500` to split the corpus into pieces

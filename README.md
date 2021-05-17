@@ -25,7 +25,8 @@ The data is [HERE](https://drive.google.com/open?id=1KjL3mAxj9nmzqC75s2rNaT6x6CJ
 4. run `python3 train_avitm.py 2>&1 | tee logs/train.log`
 5. run `python3 generate_slot_topN.py 2>&1 | tee logs/generation.log`
 6. run `python3 decode.py 2>&1 | tee logs/decoding.log`
-7. run `cd slotcoherence && ./run-oc.sh 2>&1 | tee $SCRIPTPATH/logs/coherence.log && cd ..`
+7. follow steps in `slotcoherence/README.md` to split the corpus
+7. run `cd slotcoherence && bash ./run-oc.sh 2>&1 | tee $SCRIPTPATH/logs/coherence.log && cd ..`
 8. run `visualize_test.ipynb`
 
 ## Produced Data
