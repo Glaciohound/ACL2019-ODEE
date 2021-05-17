@@ -45,17 +45,37 @@ Average Topic Coherence = 0.076
 Median Topic Coherence = 0.075
 ```
 
+After about 110 epoches (2021-05-17-4), loss ~ 4824:
+```
+Average Topic Coherence = 0.133
+Median Topic Coherence = 0.119
+```
+
+After about 130 epoches (2021-05-17-2), loss ~ 4795:
+```
+Average Topic Coherence = 0.141
+Median Topic Coherence = 0.155
+```
+
+After about 150 epoches (2021-05-17-3), loss ~ 4785:
+```
+Average Topic Coherence = 0.139
+Median Topic Coherence = 0.126
+```
+
 After about 260 epoches (2021-05-14):
 ```
 Average Topic Coherence = 0.109
 Median Topic Coherence = 0.104
 ```
 
-After about 460 epoches (2021-05-17):
+After about 460 epoches (2021-05-17), loss ~ 4752:
 ```
 Average Topic Coherence = 0.074
 Median Topic Coherence = 0.067
 ```
+
+![image](chi/slot-coherence.png)
 
 ## Cite
 Please cite our ACL 2019 paper:

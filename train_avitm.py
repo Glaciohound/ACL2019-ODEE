@@ -96,7 +96,6 @@ def make_optimizer():
 def train(iterator, vocab):
     if os.path.exists(args.model_path):
         model.load_cpu_model(args.model_path, optimizer)
-        print("Loading existing weights from " + args.model_path, flush=True)
     for epoch in range(args.num_epoch):
         iterator.reset()
         loss_epoch = 0.0
