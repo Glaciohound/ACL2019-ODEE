@@ -132,14 +132,22 @@ class Extractor(nn.Module):
         else:
             return loss
 
-    def save_cpu_model(self, path):
-        state_dict = self.state_dict()
-        for key, value in state_dict.items():
-            state_dict[key] = value.cpu()
+    def save_cpu_model(self, path, optimizer):
+        model_state_dict = self.state_dict()
+        for key, value in model_state_dict.items():
+            model_state_dict[key] = value.cpu()
+        optimizer_state_dict = optimizer.state_dict()
+        state_dict = {'model': model_state_dict,
+                      'optimizer': optimizer_state_dict}
         torch.save(state_dict, path)
         print("Saving model in %s." % path)
 
-    def load_cpu_model(self, path):
+    def load_cpu_model(self, path, optimizer):
         state_dict = torch.load(path)
-        self.load_state_dict(state_dict)
+        if 'optimizer' in state_dict.keys():
+            print("loading optimizer state_dict as well")
+            self.load_state_dict(state_dict['model'])
+            optimizer.load_state_dict(state_dict['optimizer'])
+        else:
+            self.load_state_dict(state_dict)
         print("Loading model from %s." % path)

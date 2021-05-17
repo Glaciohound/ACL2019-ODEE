@@ -95,7 +95,7 @@ def make_optimizer():
 
 def train(iterator, vocab):
     if os.path.exists(args.model_path):
-        model.load_cpu_model(args.model_path)
+        model.load_cpu_model(args.model_path, optimizer)
         print("Loading existing weights from " + args.model_path, flush=True)
     for epoch in range(args.num_epoch):
         iterator.reset()
@@ -122,8 +122,8 @@ def train(iterator, vocab):
                 pbar.update(1)
         print('Epoch {}, loss={}'.format(epoch + 1, loss_epoch / max_step),
               flush=True)
-        model.save_cpu_model(args.model_path)
-    model.save_cpu_model(args.model_path)
+        model.save_cpu_model(args.model_path, optimizer)
+    model.save_cpu_model(args.model_path, optimizer)
     print("Done!")
 
 
