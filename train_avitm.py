@@ -102,7 +102,6 @@ def train(iterator, vocab):
         loss_epoch = 0.0
         model.train()  # switch to training mode
         max_step = (len(iterator) + args.batch_size - 1) // args.batch_size
-        # with tqdm(total=max_step, desc='Epoch %d Progress' % (epoch + 1)) as pbar:
         with tqdm(total=max_step, desc='Epoch %d Progress' % (epoch + 1)) as pbar:
             for iter_no in range(max_step):
                 hs, fs, rs, _, _, mask, _, _ = iterator.get_minibatch(args.batch_size)
@@ -121,7 +120,8 @@ def train(iterator, vocab):
                 loss_epoch += loss.item()  # add loss to loss_epoch
                 pbar.set_postfix({'loss': '{0:1.5f}'.format(loss.item())})
                 pbar.update(1)
-        print('Epoch {}, loss={}'.format(epoch + 1, loss_epoch / max_step))
+        print('Epoch {}, loss={}'.format(epoch + 1, loss_epoch / max_step),
+              flush=True)
         model.save_cpu_model(args.model_path)
     model.save_cpu_model(args.model_path)
     print("Done!")

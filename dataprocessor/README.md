@@ -21,9 +21,6 @@ http://nlp.stanford.edu/software/stanford-corenlp-full-2018-02-27.zip
 
 ### Run Preprocess Steps
 One can not remove the `sudo` in the following scripts, or the Stanford-NLP-server will report 403 forbidden error.
-`
-sudo python3 odee_preprocess_stanza.py $SCRIPTPATH/data/test_data parsed_test
-`
 
 bash:
 ```
@@ -55,6 +52,6 @@ cat corpus.test corpus.dev corpus.unlabeled > corpus
 ```
 
 ## Produced Data
-1. `*.txt`: original text
-2. `*.json`: json-style ODEE input
+1. `parsed_*/*.txt`: original text
+2. `parsed_*/*.json`: json-style ODEE input
 3. `corpus.*`: tokenized full text corpus

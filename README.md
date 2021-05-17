@@ -37,6 +37,26 @@ The data is [HERE](https://drive.google.com/open?id=1KjL3mAxj9nmzqC75s2rNaT6x6CJ
 5. `*.json.labeled`: labeled events of test split
 6. `slotcoherence/slot_head_words.txt`: generated topN head words for each slot
 
+# Results
+
+After about 80 epoches (2021-05-13):
+```
+Average Topic Coherence = 0.076
+Median Topic Coherence = 0.075
+```
+
+After about 260 epoches (2021-05-14):
+```
+Average Topic Coherence = 0.109
+Median Topic Coherence = 0.104
+```
+
+After about 460 epoches (2021-05-17):
+```
+Average Topic Coherence = 0.074
+Median Topic Coherence = 0.067
+```
+
 ## Cite
 Please cite our ACL 2019 paper:
 ```bibtex
