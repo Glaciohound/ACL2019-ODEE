@@ -142,12 +142,15 @@ class Extractor(nn.Module):
         torch.save(state_dict, path)
         print("Saving model in %s." % path)
 
-    def load_cpu_model(self, path, optimizer):
+    def load_cpu_model(self, path, optimizer=None):
         state_dict = torch.load(path)
         if 'optimizer' in state_dict.keys():
             print("loading optimizer state_dict as well")
             self.load_state_dict(state_dict['model'])
-            optimizer.load_state_dict(state_dict['optimizer'])
+            if optimizer is not None:
+                optimizer.load_state_dict(state_dict['optimizer'])
+            else:
+                print("Optimizer is None while trying to load its state_dict")
         else:
             self.load_state_dict(state_dict)
         print("Loading model from %s." % path)

@@ -51,7 +51,7 @@ entity_vocab.load("./evoc.txt")
 net_arch = args
 net_arch.num_input = len(vocab)
 model = Extractor(net_arch)
-model.load_cpu_model(args.model_path)
+model.load_cpu_model(args.model_path, None)
 model.cuda()
 model.eval()
 
